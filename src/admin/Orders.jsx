@@ -67,7 +67,7 @@ function Orders() {
     }, []);
     useEffect(() => {
         // الاتصال بـ Socket.IO
-        const socket = io("https://backend-production-a5a7.up.railway.app/", {
+        const socket = io(`${BASE_URL}`, {
             transports: ["websocket", "polling"], // دعم النقل عبر Polling وWebSocket
             withCredentials: true,
         });
@@ -75,7 +75,7 @@ function Orders() {
         // جلب الطلبات عند تحميل المكون
         const fetchOrders = async () => {
             try {
-                const response = await fetch(`https://backend-production-a5a7.up.railway.app/user/all-orders`, {
+                const response = await fetch(`${BASE_URL}/user/all-orders`, {
                     method: 'GET',
                     headers: {
                         "Authorization": `Bearer ${token}`
