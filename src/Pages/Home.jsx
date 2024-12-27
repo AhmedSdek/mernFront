@@ -6,11 +6,12 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
-import { Container, Stack } from '@mui/material';
+import { Container, Divider, Stack } from '@mui/material';
 import { useCart } from '../context/cart/CartContext';
 import { BASE_URL } from '../conestans/baseUrl';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Header from './Header';
 function Home() {
     const [data, setData] = useState([]);
     const { addItemToCart, btn, setBtn } = useCart();
@@ -33,12 +34,18 @@ function Home() {
     }, []); // Empty dependency array to run once on component mount
 
     return (
+        <>
+            <Header />
         <Container sx={{ mt: 2 }}>
-            <Stack sx={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+                <Typography component='h2' variant='h4' sx={{ fontWeight: 'bold', color: '#eb8225', padding: '15px  0' }}>
+                    Our Menu
+                </Typography>
+                <Divider sx={{ margin: '0 0 20px 0' }} />
+                <Stack sx={{ flexDirection: 'row', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
                 {data.data &&
                     data.data.map((proj, index) => {
                         return (
-                            <Card key={index} sx={{ minWidth: 345 }}>
+                            <Card key={index} sx={{ width: 345 }}>
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
@@ -75,6 +82,7 @@ function Home() {
                 }
             </Stack>
         </Container >
+        </>
     )
 }
 

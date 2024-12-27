@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
@@ -21,7 +20,7 @@ function Regester() {
     }, []);
     if (!isAuthenticated) {
         return (
-            <Box style={{ width: '100%', display: 'flex', height: 'calc(100vh - 64px)', justifyContent: 'center', alignItems: 'center' }}>
+            <Box style={{ width: '100%', display: 'flex', height: '100vh ', justifyContent: 'center', alignItems: 'center' }}>
                 <Card sx={{ width: { xs: '90%', sm: '80%' }, display: 'flex', alignItems: 'center', flexDirection: 'column', padding: '20px' }}>
                     <Typography variant="h5" component='h4'>Create a new Acount</Typography>
                     <Box component='form'

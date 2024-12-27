@@ -15,6 +15,7 @@ function Dashboard() {
         { icon: <ShareIcon />, name: 'Share' },
     ];
     return (
+        <Box sx={{ marginTop: '64px' }}>
         <Container>
             <Stack>
                 <Typography>
@@ -39,6 +40,7 @@ function Dashboard() {
                 </SpeedDial>
             </Box>
         </Container>
+        </Box>
     )
 }
 

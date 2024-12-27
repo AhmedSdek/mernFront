@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Container, Stack, Typography } from '@mui/material';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 
 
@@ -10,6 +10,7 @@ function MyOrdersPage() {
         getMyOrders()
     }, []);
     return (
+        <Box sx={{ marginTop: '64px' }}>
         <Container>
             <Typography>
                 MyOrdersPage
@@ -46,6 +47,7 @@ function MyOrdersPage() {
                 )
             })}
         </Container>
+        </Box>
     )
 }
 

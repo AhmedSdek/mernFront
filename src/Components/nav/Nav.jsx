@@ -19,9 +19,8 @@ import { useCart } from '../../context/cart/CartContext';
 function Nav() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const { userName, lastName, token, role, isAuthenticated, logout } = useAuth()
+    const { userName, role, isAuthenticated, logout } = useAuth()
     const nav = useNavigate()
-    // console.log({ userName, token, role, lastName, isAuthenticated });
     const { cartItems } = useCart()
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -56,7 +55,7 @@ function Nav() {
         nav('my-orders')
     }
     return (
-        <AppBar position="static">
+        <AppBar position="fixed" sx={{ backgroundColor: 'transparent' }}>
             <Container maxWidth="xl">
                 <Toolbar sx={{ justifyContent: 'space-between' }} disableGutters>
                     <Link to='/'>
@@ -67,9 +66,9 @@ function Nav() {
                                 mr: 2,
                                 display: { xs: 'none', md: 'flex' },
                                 fontFamily: 'monospace',
-                                fontWeight: 700,
+                                fontWeight: 'bold',
                                 letterSpacing: '.3rem',
-                                color: 'inherit'
+                                color: '#eb8225'
                             }}
                         >
                             LOGO
@@ -84,9 +83,9 @@ function Nav() {
                                 display: { xs: 'flex', md: 'none' },
                                 flexGrow: 1,
                                 fontFamily: 'monospace',
-                                fontWeight: 700,
+                                fontWeight: "bold",
                                 letterSpacing: '.3rem',
-                                color: 'inherit',
+                                color: '#eb8225',
                             }}
                         >
                             LOGO
@@ -95,13 +94,21 @@ function Nav() {
                     {isAuthenticated ?
                         <Box sx={{ flexGrow: 0 }}>
                             <Stack sx={{ flexDirection: 'row', gap: 2, alignItems: 'center' }} title="Open settings">
-                                <IconButton onClick={handelcartbtn} >
-                                    <Badge badgeContent={cartItems.length} color="error">
-                                        <ShoppingCartIcon sx={{ color: 'white' }} />
-                                    </Badge>
+                                <IconButton onClick={handelcartbtn} sx={{
+                                    backgroundColor: '#bdbdbd',
+                                    '&:hover': {
+                                        color: 'white',
+                                        backgroundColor: '#eb8225',
+                                    },
+                                }} >
+                                    <Badge badgeContent={cartItems.length} color="error" sx={{
+                                        top: "-17px",
+                                        left: "27px"
+                                    }} />
+                                    <ShoppingCartIcon sx={{ color: 'black' }} />
                                 </IconButton>
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt={userName} src="/static/images/avatar/2.jpg" />
+                                    <Avatar alt={userName} sx={{ color: 'black' }} src="/static/images/avatar/2.jpg" />
                                 </IconButton>
                             </Stack>
                             <Menu

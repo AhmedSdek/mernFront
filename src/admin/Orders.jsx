@@ -111,7 +111,7 @@ function Orders() {
     }, [isSoundEnabled]);
     console.log(data)
     return (
-        <Stack>
+        <Stack sx={{ padding: '15px 0' }}>
             <Typography>
                 Orders
             </Typography>

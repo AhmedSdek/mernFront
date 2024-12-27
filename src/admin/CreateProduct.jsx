@@ -50,7 +50,7 @@ function CreateProduct() {
         }
     }
     return (
-        <Stack component='form' sx={{ gap: 2 }}
+        <Stack component='form' sx={{ gap: 2, padding: '15px 0' }}
             onSubmit={(e) => handelSubmit(e)}>
             <Typography>Add Product</Typography>
             <TextField inputRef={titleRef} fullWidth label="title" id="fullWidth" />

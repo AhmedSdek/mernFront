@@ -23,7 +23,7 @@ function Login() {
     if (!isAuthenticated) {
         return (
             <>
-                <Box style={{ width: '100%', display: 'flex', height: 'calc(100vh - 64px)', justifyContent: 'center', alignItems: 'center' }}>
+                <Box style={{ width: '100%', display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center' }}>
                     <Card sx={{ width: { xs: '90%', sm: '80%' }, display: 'flex', alignItems: 'center', flexDirection: 'column', padding: '20px' }}>
                         <Box component='form'
                             onSubmit={async (e) => {
