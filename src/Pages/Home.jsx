@@ -9,9 +9,13 @@ import CardActions from '@mui/material/CardActions';
 import { Container, Stack } from '@mui/material';
 import { useCart } from '../context/cart/CartContext';
 import { BASE_URL } from '../conestans/baseUrl';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 function Home() {
     const [data, setData] = useState([]);
-    const { addItemToCart, btn, setBtn } = useCart()
+    const { addItemToCart, btn, setBtn } = useCart();
+    const { isAuthenticated } = useAuth();
+    const nav = useNavigate()
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -55,8 +59,12 @@ function Home() {
                                     <Button
                                         disabled={btn}
                                         onClick={() => {
-                                            setBtn(false)
-                                            addItemToCart(proj._id)
+                                            if (isAuthenticated) {
+                                                setBtn(false)
+                                                addItemToCart(proj._id)
+                                            } else {
+                                                nav('/login')
+                                            }
                                         }} variant='contained' >
                                         {btn ? 'loading' : "Add To Cart"}
                                     </Button>

@@ -3,15 +3,14 @@ import { CartContext } from "./CartContext.js";
 import { useAuth } from "../AuthContext.js";
 import Swal from "sweetalert2";
 import { BASE_URL } from "../../conestans/baseUrl.jsx";
-import { useNavigate } from "react-router-dom";
 
 const CartProvider = ({ children }) => {
-    const { token, isAuthenticated } = useAuth();
+    const { token } = useAuth();
     const [cartItems, setCartItems] = useState([]);
     const [err, setErr] = useState("");
     const [totalAmount, setTotalAmount] = useState(0);
     const [btn, setBtn] = useState(false);
-    const nav = useNavigate()
+
     useEffect(() => {
         if (!token) {
             return;
@@ -42,62 +41,58 @@ const CartProvider = ({ children }) => {
     }, []);
 
     const addItemToCart = async (productId) => {
-        if (isAuthenticated) {
-            setBtn(true)
-            try {
-                const res = await fetch(`${BASE_URL}/cart/items`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify({
-                        productId,
-                        quantity: 1,
-                    }),
-                });
-                if (!res.ok) {
-                    setErr("faild to add product to cart");
-                    setBtn(false);
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: " item already exists",
-                    });
-                    return;
-                }
-                const cart = await res.json();
-                // console.log(cart);
-                if (!cart) {
-                    setErr("faield to parse cart");
-                    setBtn(false)
-                    return;
-                }
-                cart.items.map((it) => console.log(it))
-                const cartItemsMaped = cart.items.map(({ product, quantity, unitPrice }) => ({
-                    productId: product._id,
-                    title: product.title,
-                    image: product.image,
-                    quantity,
-                    unitPrice
-                }));
-                // console.log(cartItemsMaped)
-                setCartItems([...cartItemsMaped]);
-                setTotalAmount(cart.totalAmount);
+        setBtn(true)
+        try {
+            const res = await fetch(`${BASE_URL}/cart/items`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    productId,
+                    quantity: 1,
+                }),
+            });
+            if (!res.ok) {
+                setErr("faild to add product to cart");
+                setBtn(false);
                 Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Item added Success",
-                    showConfirmButton: false,
-                    timer: 900
+                    icon: "error",
+                    title: "Oops...",
+                    text: " item already exists",
                 });
-                setBtn(false)
-            } catch (err) {
-                console.log(err);
-                setBtn(false)
+                return;
             }
-        } else {
-            nav('/login')
+            const cart = await res.json();
+            // console.log(cart);
+            if (!cart) {
+                setErr("faield to parse cart");
+                setBtn(false)
+                return;
+            }
+            cart.items.map((it) => console.log(it))
+            const cartItemsMaped = cart.items.map(({ product, quantity, unitPrice }) => ({
+                productId: product._id,
+                title: product.title,
+                image: product.image,
+                quantity,
+                unitPrice
+            }));
+            // console.log(cartItemsMaped)
+            setCartItems([...cartItemsMaped]);
+            setTotalAmount(cart.totalAmount);
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Item added Success",
+                showConfirmButton: false,
+                timer: 900
+            });
+            setBtn(false)
+        } catch (err) {
+            console.log(err);
+            setBtn(false)
         }
         // console.log(productId);
     };
