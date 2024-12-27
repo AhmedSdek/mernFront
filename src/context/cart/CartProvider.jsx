@@ -3,6 +3,7 @@ import { CartContext } from "./CartContext.js";
 import { useAuth } from "../AuthContext.js";
 import Swal from "sweetalert2";
 import { BASE_URL } from "../../conestans/baseUrl.jsx";
+import { useNavigate } from "react-router-dom";
 
 const CartProvider = ({ children }) => {
     const { token, isAuthenticated } = useAuth();
@@ -10,7 +11,7 @@ const CartProvider = ({ children }) => {
     const [err, setErr] = useState("");
     const [totalAmount, setTotalAmount] = useState(0);
     const [btn, setBtn] = useState(false);
-
+    const nav = useNavigate()
     useEffect(() => {
         if (!token) {
             return;
@@ -95,6 +96,8 @@ const CartProvider = ({ children }) => {
                 console.log(err);
                 setBtn(false)
             }
+        } else {
+            nav('/login')
         }
         // console.log(productId);
     };
