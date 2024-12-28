@@ -53,12 +53,12 @@ function Home() {
                                         image={proj.image}
                                         alt="green iguana"
                                     />
-                                    <CardContent>
+                                    <CardContent sx={{ display: 'flex', flexDirection: 'column', }}>
                                         <Typography gutterBottom variant="h5" component="div">
                                             {proj.title}
                                         </Typography>
                                         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                            {proj.price}EGY
+                                            Price : {proj.price} EGY
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Divider, Paper, Stack, Typography } from '@mui/material';
 import Swal from "sweetalert2";
 import { io } from 'socket.io-client';
 import { BASE_URL } from '../conestans/baseUrl';
+import moment from 'moment';
 function Orders() {
     const { token } = useAuth();
     const [data, setData] = useState([]);
@@ -75,7 +76,7 @@ function Orders() {
         // جلب الطلبات عند تحميل المكون
         const fetchOrders = async () => {
             try {
-                const response = await fetch(`${BASE_URL}/user/all-orders`, {
+                const response = await fetch(`${BASE_URL}/user/new-orders`, {
                     method: 'GET',
                     headers: {
                         "Authorization": `Bearer ${token}`
@@ -115,31 +116,33 @@ function Orders() {
             <Typography>
                 Orders
             </Typography>
-            <Stack sx={{ gap: 2 }}>
+            <Stack sx={{ gap: 2, flexDirection: "row", flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 {data.map((order, index) => {
                     return (
-                        <Stack key={index}>
-                            <Typography>{order.status}</Typography>
+                        <Paper key={index} elevation={3} sx={{ padding: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '25px', flexDirection: 'column', gap: 2, width: '345px', position: 'relative' }}>
+                            <Typography sx={{ position: 'absolute', backgroundColor: 'red', borderRadius: '50%', width: '20px', height: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bod', padding: '10px', right: '0', top: '0' }}>{order.status}</Typography>
+                            <Stack divider={<Divider sx={{ margin: '10px 0' }} />}>
                             {order.orderItems.map((item) => {
                                 return (
-                                    <Stack key={item._id}>
-                                        <img src={item.productImage} alt='' />
-                                        <Typography>{item.productTitle}</Typography>
-                                        <Typography>{item.quantity}</Typography>
-                                        <Typography>{item.unitPrice}EGP</Typography>
+                                    <Stack key={item._id} >
+                                        <Box sx={{ width: '100%' }}>
+                                            <img style={{ width: '100%' }} src={item.productImage} alt='' />
+                                        </Box>
+                                        <Typography>Product Name : {item.productTitle}</Typography>
+                                        <Typography>Quantity : {item.quantity}</Typography>
+                                        <Typography>Price : {item.unitPrice}EGP</Typography>
                                     </Stack>
                                 )
                             })}
-                            <Typography>phone: {order.phone}</Typography>
+                            </Stack>
+                            <Typography>Phone Num: {order.phone}</Typography>
                             <Typography>address: {order.address}</Typography>
                             <Typography>Total: {order.total}</Typography>
+                            <Typography>time: {moment(order.createdAt).fromNow()}</Typography>
                             <Button onClick={() => handelstatus(order._id, 'accepted')}>
                                 Accept
                             </Button>
-                            {/* <Button onClick={() => setNoti(true)}>
-                                Reject
-                            </Button> */}
-                        </Stack>
+                        </Paper>
                     )
                 })}
             </Stack>

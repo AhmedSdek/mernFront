@@ -38,11 +38,9 @@ const AuthProvider = ({ children }) => {
                 }
             });
             if (!res.ok) {
-                // seterr('email or password wrong please try another')
                 return;
             }
             const data = await res.json();
-            console.log(data)
             setOrders([...data])
         } catch (err) {
             console.log(err)

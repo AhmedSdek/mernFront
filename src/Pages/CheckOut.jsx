@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Container, Paper, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, Container, Divider, Paper, Stack, TextField, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import { useCart } from '../context/cart/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -51,25 +51,36 @@ function CheckOut() {
     }
     if (isAuthenticated) {
         return (
-            <Box>
+            <Box sx={{ marginTop: '64px' }}>
                 <Container>
-                    <Typography>
+                    <Typography sx={{ fontWeight: 'bold', padding: '15px 0' }}>
                         Check Out Page
                     </Typography>
-                    <Stack sx={{ gap: 2 }}>
+                    <Divider />
+
+                    <Stack sx={{ gap: 2, padding: '10px 0' }}>
                         <Stack sx={{ gap: 2 }}>
                             {
                                 cartItems.map((item, index) => {
                                     return (
-                                        <Paper key={index} elevation={3} sx={{ padding: '5px' }}>
-                                            <img src={item.image} alt='' />
-                                            <Typography>{item.title}</Typography>
-                                            <Typography>{item.quantity} x {item.unitPrice} EGP</Typography>
+                                        <Paper key={index} elevation={3} sx={{ padding: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '25px', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+                                            <Stack sx={{ flexDirection: { xs: "column", sm: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 2, width: { xs: '100%', sm: 'initial' } }}>
+                                                <Box sx={{ width: { xs: '100%', sm: '200px' } }}>
+                                                    <img src={item.image} alt='' style={{ width: '100%' }} />
+                                                </Box>
+                                                <Stack sx={{ alignItems: 'start', gap: 1, width: { xs: '100%', sm: 'initial' } }}>
+                                                    <Typography sx={{ fontWeight: 'bold' }}>{item.title}</Typography>
+                                                    <Typography sx={{ fontWeight: 'bold' }}>{item.quantity} x {item.unitPrice} EGP</Typography>
+                                                </Stack>
+                                            </Stack>
                                         </Paper>
                                     )
                                 })
                             }
                             <Paper elevation={3} sx={{ padding: '10px' }}>
+                                <Typography>
+                                    Complite the form
+                                </Typography>
                                 <Stack sx={{ gap: 2 }}>
                                     <TextField
                                         required
@@ -86,10 +97,12 @@ function CheckOut() {
                                         name='address'
                                     />
                                 </Stack>
-                                <Typography sx={{ margin: '10px 0 ' }}>{`Total Price : ${totalAmount.toFixed(2)}`} EGP</Typography>
-                                <Button onClick={(e) => handelConfirm(e)} variant='contained'>
-                                    Confirm Order
-                                </Button>
+                                <Stack sx={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', padding: '15px 0 ' }}>
+                                    <Typography>Total Price : {totalAmount.toFixed(2)} EGP</Typography>
+                                    <Button onClick={(e) => handelConfirm(e)} variant='contained'>
+                                        Confirm Order
+                                    </Button>
+                                </Stack>
                             </Paper>
                         </Stack>
                     </Stack>

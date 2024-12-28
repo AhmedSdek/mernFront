@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Container, Paper, Stack, Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, Container, Divider, Paper, Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -28,6 +28,10 @@ function Cart() {
         return (
             <Box sx={{ marginTop: '64px' }}>
                 <Container>
+                    <Typography sx={{ fontWeight: 'bold', padding: '15px 0' }}>
+                        Your Cart
+                    </Typography>
+                    <Divider />
                     <Stack sx={{ gap: 2, padding: '10px 0' }}>
                         <Button sx={{ width: 'fit-content' }} onClick={() => clearCart()} variant='contained' color='error'>
                             Clear Cart
@@ -36,12 +40,14 @@ function Cart() {
                             {cartItems.length ?
                                 cartItems.map((item, index) => {
                                     return (
-                                        <Paper key={index} elevation={3} sx={{ padding: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '25px' }}>
-                                            <Stack sx={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 2 }}>
-                                                <img src={item.image} alt='' style={{ width: '150px' }} />
-                                                <Stack sx={{ alignItems: 'start', gap: 1 }}>
-                                                    <Typography>{item.title}</Typography>
-                                                    <Typography>{item.quantity} x {item.unitPrice} EGP</Typography>
+                                        <Paper key={index} elevation={3} sx={{ padding: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '25px', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+                                            <Stack sx={{ flexDirection: { xs: "column", sm: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 2, width: { xs: '100%', sm: 'initial' } }}>
+                                                <Box sx={{ width: { xs: '100%', sm: '200px' } }}>
+                                                    <img src={item.image} alt='' style={{ width: '100%' }} />
+                                                </Box>
+                                                <Stack sx={{ alignItems: 'start', gap: 1, width: { xs: '100%', sm: 'initial' } }}>
+                                                    <Typography sx={{ fontWeight: 'bold' }}>{item.title}</Typography>
+                                                    <Typography sx={{ fontWeight: 'bold' }}>{item.quantity} x {item.unitPrice} EGP</Typography>
                                                     <Button variant='outlined' onClick={() => handelRemoveItem(item.productId)} color='error' >Remove Item</Button>
                                                 </Stack>
                                             </Stack>

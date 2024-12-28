@@ -55,7 +55,7 @@ function Nav() {
         nav('my-orders')
     }
     return (
-        <AppBar position="fixed" sx={{ backgroundColor: 'transparent' }}>
+        <AppBar position="fixed" sx={{ backgroundColor: '#ffffffa8' }}>
             <Container maxWidth="xl">
                 <Toolbar sx={{ justifyContent: 'space-between' }} disableGutters>
                     <Link to='/'>
