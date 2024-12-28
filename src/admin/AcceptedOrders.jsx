@@ -155,7 +155,6 @@ function AcceptedOrders() {
                             <Typography>Total: {order.total}</Typography>
                             {order.status === 'accepted' &&
                                 <Button onClick={() => handelstatus(order._id)} variant='contained'>Ready</Button>
-
                             }
                         </Paper>
                     )

@@ -85,22 +85,22 @@ function MyOrdersPage() {
                 <Stack sx={{ gap: 2 }}>
                     {orders.map((item, index) => {
                 return (
-                    <Stack key={index} sx={{ gap: 2 }}>
+                    <Paper key={index} elevation={3} sx={{ padding: '30px 15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '25px', flexDirection: 'column', gap: 2, position: 'relative' }}>
+                        <Stack divider={<Divider sx={{ margin: '10px 0' }} />} sx={{ flexDirection: 'row', width: '100%', flexWrap: 'wrap' }}>
                         {item.orderItems.map((order, index2) => {
                             return (
-                                <Paper key={index2} elevation={3} sx={{ padding: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '25px', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
-                                    <Stack sx={{ flexDirection: { xs: "column", sm: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 2, width: { xs: '100%', sm: 'initial' } }}>
-                                        <Box sx={{ width: { xs: '100%', sm: '200px' } }}>
-                                            <img src={order.productImage} alt='' style={{ width: '100%' }} />
-                                        </Box>
-                                        <Stack sx={{ alignItems: 'start', gap: 1, width: { xs: '100%', sm: 'initial' } }}>
-                                            <Typography sx={{ fontWeight: 'bold' }}>{order.productTitle}</Typography>
-                                            <Typography sx={{ fontWeight: 'bold' }}>{order.quantity} x {order.unitPrice} EGP</Typography>
-                                        </Stack>
+                                <Paper key={index2} sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, width: '100%', justifyContent: 'space-between', marginBottom: '10px' }}>
+                                    <Stack sx={{ justifyContent: 'space-between', padding: '15px ', alignItems: 'start' }}>
+                                        <Typography sx={{ fontWeight: 'bold' }}>{order.productTitle}</Typography>
+                                        <Typography sx={{ fontWeight: 'bold' }}>{order.quantity} x {order.unitPrice} EGP</Typography>
                                     </Stack>
+                                    <Box sx={{ width: { xs: '100%', sm: '200px' } }}>
+                                        <img src={order.productImage} alt='' style={{ width: '100%' }} />
+                                    </Box>
                                 </Paper>
                             )
                         })}
+                        </Stack>
                         <Typography>
                             My Address : {item.address}
                         </Typography>
@@ -118,7 +118,7 @@ function MyOrdersPage() {
                                 cancel order
                             </Button>
                         }
-                    </Stack>
+                    </Paper>
                 )
                     })}
                 </Stack>
