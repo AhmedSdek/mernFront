@@ -60,30 +60,30 @@ function Nav() {
         <AppBar position="fixed" sx={{ backgroundColor: '#ffffffa8' }}>
             <Container maxWidth="xl">
                 <Toolbar sx={{ justifyContent: 'space-between' }} disableGutters>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                     <Link to='/'>
                         <Typography
-                            variant="h6"
-                            noWrap
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 'bold',
-                                letterSpacing: '.3rem',
-                                color: '#eb8225'
-                            }}
+                                variant="h5"
+                                noWrap
+                                sx={{
+                                    mr: 2,
+                              fontFamily: 'monospace',
+                              fontWeight: "bold",
+                              letterSpacing: '.3rem',
+                              color: '#eb8225',
+                          }}
                         >
                             LOGO
                         </Typography>
                     </Link>
+                    </Box>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                     <Link to='/'>
                         <Typography
                             variant="h5"
                             noWrap
                             sx={{
                                 mr: 2,
-                                display: { xs: 'flex', md: 'none' },
-                                flexGrow: 1,
                                 fontFamily: 'monospace',
                                 fontWeight: "bold",
                                 letterSpacing: '.3rem',
@@ -93,9 +93,11 @@ function Nav() {
                             LOGO
                         </Typography>
                     </Link>
+                    </Box>
                     {isAuthenticated ?
                         <Box sx={{ flexGrow: 0 }}>
                             <Stack sx={{ flexDirection: 'row', gap: 2, alignItems: 'center' }} title="Open settings">
+                                {role === 'admin' && 
                                 <IconButton onClick={() => nav('dashboard/orders')} sx={{
                                     backgroundColor: '#bdbdbd',
                                     '&:hover': {
@@ -109,6 +111,7 @@ function Nav() {
                                     }} />
                                     <NotificationsIcon sx={{ color: 'black' }} />
                                 </IconButton>
+                                }
                                 <IconButton onClick={handelcartbtn} sx={{
                                     backgroundColor: '#bdbdbd',
                                     '&:hover': {
