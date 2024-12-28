@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AuthContext } from './AuthContext';
 import { BASE_URL } from '../conestans/baseUrl';
+import { io } from 'socket.io-client';
 const AuthProvider = ({ children }) => {
     const USERNAME_KEY = 'userName';
     const TOKEN_KEY = 'token';
@@ -8,7 +9,7 @@ const AuthProvider = ({ children }) => {
     const [lastName, setLastName] = useState(localStorage.getItem('lastName'));
     const [token, setToken] = useState(localStorage.getItem(TOKEN_KEY));
     const [role, setRole] = useState(localStorage.getItem('role'));
-    const [orders, setOrders] = useState([]);
+    const [newOrdersCount, setNewOrdersCount] = useState(0);
     const register = (userName, lastName, token, role) => {
         setUserName(userName);
         setToken(token);
@@ -29,27 +30,26 @@ const AuthProvider = ({ children }) => {
         setRole(null);
         setToken(null)
     }
-    const getMyOrders = async () => {
-        try {
-            const res = await fetch(`${BASE_URL}/user/my-orders`, {
-                method: 'GET',
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            });
-            if (!res.ok) {
-                return;
-            }
-            const data = await res.json();
-            setOrders([...data])
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    useEffect(() => {
+        // الاتصال بـ Socket.IO
+        const socket = io(BASE_URL, {
+            transports: ["websocket", "polling"],
+            withCredentials: true,
+        });
+
+        // استقبال الطلبات الجديدة
+        socket.on("newOrder", () => {
+            setNewOrdersCount((prevCount) => prevCount + 1); // زيادة العداد
+        });
+        // تنظيف الاتصال عند انتهاء المكون
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
     const isAuthenticated = !!token;
 
     return (
-        <AuthContext.Provider value={{ userName, lastName, token, register, role, isAuthenticated, logout, getMyOrders, orders }}>
+        <AuthContext.Provider value={{ userName, lastName, token, register, role, isAuthenticated, logout, setNewOrdersCount, newOrdersCount }}>
             {children}
         </AuthContext.Provider>
     )

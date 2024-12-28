@@ -16,10 +16,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Stack } from '@mui/material';
 import { useCart } from '../../context/cart/CartContext';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 function Nav() {
+    // console.log(newOrdersCount)
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const { userName, role, isAuthenticated, logout } = useAuth()
+    const { userName, role, isAuthenticated, logout, newOrdersCount } = useAuth()
+    console.log(newOrdersCount)
     const nav = useNavigate()
     const { cartItems } = useCart()
     const handleOpenNavMenu = (event) => {
@@ -94,6 +97,19 @@ function Nav() {
                     {isAuthenticated ?
                         <Box sx={{ flexGrow: 0 }}>
                             <Stack sx={{ flexDirection: 'row', gap: 2, alignItems: 'center' }} title="Open settings">
+                                <IconButton onClick={() => nav('dashboard/orders')} sx={{
+                                    backgroundColor: '#bdbdbd',
+                                    '&:hover': {
+                                        color: 'white',
+                                        backgroundColor: '#eb8225',
+                                    },
+                                }} >
+                                    <Badge badgeContent={newOrdersCount} color="error" sx={{
+                                        top: "-17px",
+                                        left: "27px"
+                                    }} />
+                                    <NotificationsIcon sx={{ color: 'black' }} />
+                                </IconButton>
                                 <IconButton onClick={handelcartbtn} sx={{
                                     backgroundColor: '#bdbdbd',
                                     '&:hover': {

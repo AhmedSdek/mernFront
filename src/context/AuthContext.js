@@ -8,8 +8,8 @@ export const AuthContext = createContext({
     register: () => { },
     logout: () => { },
     isAuthenticated: false,
-    getMyOrders: () => { },
-    orders: []
+    setNewOrdersCount: () => { },
+    newOrdersCount: 0
 });
 
 export const useAuth = () => useContext(AuthContext);

@@ -27,10 +27,10 @@ function App() {
         <Route path='/register' element={<Regester />} />
         <Route path='/login' element={<Login />} />
         <Route element={<ProtectedRoute />}>
-          <Route path='/dashboard' element={<Dashboard />} >
-            <Route path='dashboard/create' element={<CreateProduct />} />
-            <Route path='dashboard/orders' element={<Orders />} />
-            <Route path='dashboard/accepted-orders' element={<AcceptedOrders />} />
+          <Route path='/dashboard/' element={<Dashboard />} >
+            <Route path='create' element={<CreateProduct />} />
+            <Route path='orders' element={<Orders />} />
+            <Route path='accepted-orders' element={<AcceptedOrders />} />
           </Route>
         </Route>
         <Route path='/checkout' element={<CheckOut />} />

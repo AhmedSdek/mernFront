@@ -4,6 +4,7 @@ import { Box, Button, Divider, Paper, Stack, Typography } from '@mui/material';
 import Swal from "sweetalert2";
 import { BASE_URL } from '../conestans/baseUrl';
 import { io } from 'socket.io-client';
+import moment from 'moment';
 
 function AcceptedOrders() {
     const { token } = useAuth();
@@ -45,7 +46,29 @@ function AcceptedOrders() {
     //         socket.disconnect();
     //     };
     // }, [token]);
-
+    const handelstatus = async (id) => {
+        try {
+            const res = await fetch(`${BASE_URL}/user/${id}`, {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": 'application/json',
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    status: 'ready'
+                })
+            });
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Order Ready",
+                showConfirmButton: false,
+                timer: 1000
+            });
+        } catch (err) {
+            console.log(err)
+        }
+    }
     useEffect(() => {
         // الاتصال بـ Socket.IO
         const socket = io(`${BASE_URL}`, {
@@ -66,7 +89,7 @@ function AcceptedOrders() {
                     throw new Error('Network response was not ok');
                 }
                 const jsonData = await response.json();
-                const filtered = jsonData.filter((item) => item.status === "accepted");
+                const filtered = jsonData.filter((item) => item.status !== "new");
                 setFilterData(filtered);
             } catch (err) {
                 console.error(err.message); // عرض الخطأ إذا فشل الجلب
@@ -88,7 +111,7 @@ function AcceptedOrders() {
                     order._id === updatedOrder.id
                         ? { ...order, status: updatedOrder.status }
                         : order
-                ).filter((order) => order.status === "accepted") // الإبقاء على الطلبات ذات الحالة "accepted"
+                ).filter((order) => order.status !== "new") // الإبقاء على الطلبات ذات الحالة "accepted"
             );
         });
 
@@ -126,9 +149,14 @@ function AcceptedOrders() {
                             </Stack>
                             <Divider sx={{ width: '100%' }} />
                             <Typography sx={{ fontWeight: 'bold' }}>Client Details</Typography>
+                            <Typography>time: {moment(order.createdAt).fromNow()}</Typography>
                             <Typography>phone: {order.phone}</Typography>
                             <Typography>address: {order.address}</Typography>
                             <Typography>Total: {order.total}</Typography>
+                            {order.status === 'accepted' &&
+                                <Button onClick={() => handelstatus(order._id)} variant='contained'>Ready</Button>
+
+                            }
                         </Paper>
                     )
                 })}

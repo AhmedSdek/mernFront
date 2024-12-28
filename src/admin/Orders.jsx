@@ -6,7 +6,7 @@ import { io } from 'socket.io-client';
 import { BASE_URL } from '../conestans/baseUrl';
 import moment from 'moment';
 function Orders() {
-    const { token } = useAuth();
+    const { token, setNewOrdersCount } = useAuth();
     const [data, setData] = useState([]);
     const [isSoundEnabled, setIsSoundEnabled] = useState(false);
     const handelstatus = async (id) => {
@@ -49,7 +49,6 @@ function Orders() {
         const audio = new Audio("/music.mp3");
         audio.play();
     };
-
     // عند أول تفاعل مع الصفحة، نقوم بتفعيل القدرة على تشغيل الصوت
     useEffect(() => {
         const handleUserInteraction = () => {
@@ -67,12 +66,14 @@ function Orders() {
         };
     }, []);
     useEffect(() => {
+        setNewOrdersCount(0); // إعادة تصفير العداد عند فتح صفحة الطلبات
+    }, [setNewOrdersCount]);
+    useEffect(() => {
         // الاتصال بـ Socket.IO
         const socket = io(`${BASE_URL}`, {
             transports: ["websocket", "polling"], // دعم النقل عبر Polling وWebSocket
             withCredentials: true,
         });
-        // const socket = io("http://localhost:3000");
         // جلب الطلبات عند تحميل المكون
         const fetchOrders = async () => {
             try {
@@ -139,16 +140,14 @@ function Orders() {
                             <Typography>address: {order.address}</Typography>
                             <Typography>Total: {order.total}</Typography>
                             <Typography>time: {moment(order.createdAt).fromNow()}</Typography>
-                            <Button onClick={() => handelstatus(order._id, 'accepted')}>
+                            <Button onClick={() => handelstatus(order._id)}>
                                 Accept
                             </Button>
                         </Paper>
                     )
                 })}
             </Stack>
-            {/* <div>
-                <audio src={m} />
-            </div> */}
+            <Button onClick={() => setNewOrdersCount(1)}>cl</Button>
         </Stack>
     )
 }

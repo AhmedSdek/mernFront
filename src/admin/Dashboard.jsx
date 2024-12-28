@@ -34,7 +34,7 @@ function Dashboard() {
                             key={action.name}
                             icon={action.icon}
                             tooltipTitle={action.name}
-                            onClick={() => nav(`dashboard/${action.path}`)}
+                            onClick={() => nav(`${action.path}`)}
                         />
                     ))}
                 </SpeedDial>
