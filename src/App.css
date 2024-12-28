@@ -45,3 +45,10 @@
   background-position: bottom;
   background-size: cover;
 }
+.newOrder{
+  animation: new 1s linear  infinite alternate;
+}
+@keyframes new {
+  from {scale: 1;}
+  to {scale: 1.2;}
+}

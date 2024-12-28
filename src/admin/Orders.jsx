@@ -111,27 +111,30 @@ function Orders() {
             socket.disconnect();
         };
     }, [isSoundEnabled]);
+    console.log(data)
     return (
         <Stack sx={{ padding: '15px 0' }}>
             <Typography>
                 Orders
             </Typography>
-            <Stack sx={{ gap: 2, flexDirection: "row", flexWrap: 'wrap', justifyContent: 'space-between' }}>
+            <Stack sx={{ gap: 2, width: '100%', padding: '10px 0' }}>
                 {data.map((order, index) => {
                     return (
-                        <Paper key={index} elevation={3} sx={{ padding: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '25px', flexDirection: 'column', gap: 2, width: '345px', position: 'relative' }}>
-                            <Typography sx={{ position: 'absolute', backgroundColor: 'red', borderRadius: '50%', width: '20px', height: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bod', padding: '10px', right: '0', top: '0' }}>{order.status}</Typography>
-                            <Stack divider={<Divider sx={{ margin: '10px 0' }} />}>
+                        <Paper key={index} elevation={3} sx={{ padding: '30px 15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '25px', flexDirection: 'column', gap: 2, position: 'relative' }}>
+                            <Typography className={order.isNew && "newOrder"} sx={{ position: 'absolute', backgroundColor: 'red', borderRadius: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bod', padding: '10px', left: '-10px', top: '-10px' }}>{order.status}</Typography>
+                            <Stack divider={<Divider sx={{ margin: '10px 0' }} />} sx={{ flexDirection: 'row', width: '100%', flexWrap: 'wrap' }}>
                             {order.orderItems.map((item) => {
                                 return (
-                                    <Stack key={item._id} >
-                                        <Box sx={{ width: '100%' }}>
-                                            <img style={{ width: '100%' }} src={item.productImage} alt='' />
-                                        </Box>
+                                    <Paper key={item._id} sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, width: '100%', justifyContent: 'space-between', marginBottom: '10px' }} >
+                                        <Stack sx={{ justifyContent: 'space-between', padding: '15px ', alignItems: 'start' }}>
                                         <Typography>Product Name : {item.productTitle}</Typography>
                                         <Typography>Quantity : {item.quantity}</Typography>
                                         <Typography>Price : {item.unitPrice}EGP</Typography>
-                                    </Stack>
+                                        </Stack>
+                                        <Box sx={{ width: { xs: '100%', sm: '200px' } }}>
+                                            <img style={{ width: '100%', height: '100%' }} src={item.productImage} alt='' />
+                                        </Box>
+                                    </Paper>
                                 )
                             })}
                             </Stack>
@@ -139,14 +142,13 @@ function Orders() {
                             <Typography>address: {order.address}</Typography>
                             <Typography>Total: {order.total}</Typography>
                             <Typography>time: {moment(order.createdAt).fromNow()}</Typography>
-                            <Button onClick={() => handelstatus(order._id)}>
+                            <Button variant='contained' onClick={() => handelstatus(order._id)}>
                                 Accept
                             </Button>
                         </Paper>
                     )
                 })}
             </Stack>
-            <Button onClick={() => setNewOrdersCount(1)}>cl</Button>
         </Stack>
     )
 }
