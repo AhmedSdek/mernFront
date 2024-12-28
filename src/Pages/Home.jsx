@@ -67,7 +67,6 @@ function Home() {
                                         disabled={btn}
                                         onClick={() => {
                                             if (isAuthenticated) {
-                                                setBtn(false)
                                                 addItemToCart(proj._id)
                                             } else {
                                                 nav('/login')

@@ -10,6 +10,23 @@ const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem(TOKEN_KEY));
     const [role, setRole] = useState(localStorage.getItem('role'));
     const [newOrdersCount, setNewOrdersCount] = useState(0);
+    useEffect(() => {
+        // الاتصال بـ Socket.IO
+        const socket = io(BASE_URL, {
+            transports: ["websocket", "polling"],
+            withCredentials: true,
+        });
+
+        // استقبال الطلبات الجديدة
+        socket.on("newOrders", () => {
+            setNewOrdersCount((prevCount) => prevCount + 1); // زيادة العداد
+        });
+        console.log(newOrdersCount)
+        // تنظيف الاتصال عند انتهاء المكون
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
     const register = (userName, lastName, token, role) => {
         setUserName(userName);
         setToken(token);
@@ -30,22 +47,6 @@ const AuthProvider = ({ children }) => {
         setRole(null);
         setToken(null)
     }
-    useEffect(() => {
-        // الاتصال بـ Socket.IO
-        const socket = io(BASE_URL, {
-            transports: ["websocket", "polling"],
-            withCredentials: true,
-        });
-
-        // استقبال الطلبات الجديدة
-        socket.on("newOrder", () => {
-            setNewOrdersCount((prevCount) => prevCount + 1); // زيادة العداد
-        });
-        // تنظيف الاتصال عند انتهاء المكون
-        return () => {
-            socket.disconnect();
-        };
-    }, []);
     const isAuthenticated = !!token;
 
     return (

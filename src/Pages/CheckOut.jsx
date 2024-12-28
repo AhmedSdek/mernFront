@@ -15,8 +15,10 @@ function CheckOut() {
             nav('/')
         }
     }, []);
-    const { cartItems, totalAmount } = useCart()
+    const { cartItems, totalAmount, setBtn, btn } = useCart()
+    console.log(btn)
     const handelConfirm = async (e) => {
+        setBtn(true)
         e.preventDefault()
         const address = addressRef.current.value;
         const phone = phoneRef.current.value;
@@ -44,6 +46,7 @@ function CheckOut() {
                 // seterr('email or password wrong please try another')
                 return;
             }
+            setBtn(false)
             window.location.href = '/order-success'
         } catch (err) {
             console.log(err)
@@ -84,6 +87,7 @@ function CheckOut() {
                                 <Stack sx={{ gap: 2 }}>
                                     <TextField
                                         required
+                                        type='number'
                                         id="outlined-required"
                                         label="Phone Numper"
                                         inputRef={phoneRef}
@@ -95,11 +99,16 @@ function CheckOut() {
                                         label="Delivery Address"
                                         inputRef={addressRef}
                                         name='address'
-                                    />
+                                    /> 
                                 </Stack>
                                 <Stack sx={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', padding: '15px 0 ' }}>
                                     <Typography>Total Price : {totalAmount.toFixed(2)} EGP</Typography>
-                                    <Button onClick={(e) => handelConfirm(e)} variant='contained'>
+                                    <Button
+                                        disabled={btn}
+                                        onClick={(e) => {
+                                            // setBtn(true);
+                                            handelConfirm(e)
+                                        }} variant='contained'>
                                         Confirm Order
                                     </Button>
                                 </Stack>
