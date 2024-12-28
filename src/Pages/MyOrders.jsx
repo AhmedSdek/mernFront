@@ -8,7 +8,6 @@ import { io } from 'socket.io-client';
 
 function MyOrdersPage() {
     const { token } = useAuth();
-    // console.log(orders)
     const handelstatus = async (id) => {
         try {
             await fetch(`${BASE_URL}/user/${id}`, {

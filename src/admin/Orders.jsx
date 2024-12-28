@@ -111,7 +111,6 @@ function Orders() {
             socket.disconnect();
         };
     }, [isSoundEnabled]);
-    console.log(data)
     return (
         <Stack sx={{ padding: '15px 0' }}>
             <Typography>

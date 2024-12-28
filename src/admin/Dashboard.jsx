@@ -7,7 +7,6 @@ import ShareIcon from '@mui/icons-material/Share';
 import { Outlet, useNavigate } from 'react-router-dom';
 function Dashboard() {
     const nav = useNavigate()
-
     const actions = [
         { icon: <FileCopyIcon />, name: 'Create', path: 'create' },
         { icon: <SaveIcon />, name: 'New Orders', path: 'orders' },

@@ -16,8 +16,6 @@ import CreateProduct from './admin/CreateProduct'
 import AcceptedOrders from './admin/AcceptedOrders'
 
 function App() {
-  const [count, setCount] = useState(0)
-  // const dispatch = useDispatch()
   return (
     <>
       <Nav />

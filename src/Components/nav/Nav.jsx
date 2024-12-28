@@ -22,7 +22,6 @@ function Nav() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const { userName, role, isAuthenticated, logout, newOrdersCount } = useAuth()
-    console.log(newOrdersCount)
     const nav = useNavigate()
     const { cartItems } = useCart()
     const handleOpenNavMenu = (event) => {
