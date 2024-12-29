@@ -21,7 +21,6 @@ const AuthProvider = ({ children }) => {
         socket.on("newOrders", () => {
             setNewOrdersCount((prevCount) => prevCount + 1); // زيادة العداد
         });
-        console.log(newOrdersCount)
         // تنظيف الاتصال عند انتهاء المكون
         return () => {
             socket.disconnect();
