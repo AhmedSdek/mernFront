@@ -1,4 +1,4 @@
-import { Box, Button, Container, SpeedDial, SpeedDialAction, SpeedDialIcon, Stack, TextField, Typography } from '@mui/material'
+import { Button, Stack, TextField, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import Swal from "sweetalert2";
 import { useAuth } from "../context/AuthContext.js";
@@ -7,7 +7,6 @@ import { BASE_URL } from '../conestans/baseUrl.jsx';
 function CreateProduct() {
     const { token } = useAuth();
     const titleRef = useRef(null);
-    const imageRef = useRef(null);
     const nav = useNavigate()
     const priceRef = useRef(null);
     const [image, setImage] = useState(null);
@@ -77,7 +76,13 @@ function CreateProduct() {
             );
 
             if (!cloudinaryRes.ok) {
-                throw new Error("Failed to upload image to Cloudinary");
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: " Failed to upload image to Cloudinary ",
+                });
+                setIsLoading(false); // إيقاف اللودينج
+                return;
             }
 
             const cloudinaryData = await cloudinaryRes.json();
@@ -115,7 +120,6 @@ function CreateProduct() {
                 showConfirmButton: false,
                 timer: 1000,
             });
-
             nav("/");
         } catch (err) {
             console.error(err);
