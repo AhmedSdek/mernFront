@@ -46,7 +46,7 @@ function Login() {
                                 if (!token) {
                                     setErr('Incorrect token')
                                 }
-                                console.log(token)
+                                // console.log(token)
                                 register(token.firstName, token.lastName, token.token, token.role);
                                 nav('/')
                             }}

@@ -27,7 +27,7 @@ function Home() {
                 const jsonData = await response.json();
                 setData(jsonData); // Set fetched data to state
             } catch (err) {
-                clg(err.message); // Set error message if fetch fails
+                console.log(err.message); // Set error message if fetch fails
             }
         };
         fetchData();
@@ -41,7 +41,7 @@ function Home() {
                     Our Menu
                 </Typography>
                 <Divider sx={{ margin: '0 0 20px 0' }} />
-                <Stack sx={{ flexDirection: 'row', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+                <Stack sx={{ flexDirection: 'row', alignItems: 'center', gap: 2, flexWrap: 'wrap', padding: '15px 0' }}>
                 {data.data &&
                     data.data.map((proj, index) => {
                         return (

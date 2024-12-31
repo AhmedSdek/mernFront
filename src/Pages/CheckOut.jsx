@@ -18,7 +18,6 @@ function CheckOut() {
     const { cartItems, totalAmount, setBtn, btn } = useCart()
     console.log(btn)
     const handelConfirm = async (e) => {
-        setBtn(true)
         e.preventDefault()
         const address = addressRef.current.value;
         const phone = phoneRef.current.value;
@@ -30,6 +29,7 @@ function CheckOut() {
             // seterr(true);
             return;
         }
+        setBtn(true)
         try {
             const res = await fetch(`${BASE_URL}/cart/checkout`, {
                 method: 'POST',
@@ -89,7 +89,7 @@ function CheckOut() {
                                         required
                                         type='number'
                                         id="outlined-required"
-                                        label="Phone Numper"
+                                        label="Phone Number"
                                         inputRef={phoneRef}
                                         name='phone'
                                     />
