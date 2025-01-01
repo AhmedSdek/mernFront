@@ -27,7 +27,7 @@ function Edit() {
         fetchData();
     }, []); // Empty dependency array to run once on component mount
 
-    const removeProduct = async (productId) => {
+    const removeProduct = async (productId, imageId) => {
         try {
             const res = await fetch(`${BASE_URL}/api/menu/${productId}`, {
                 method: 'DELETE',
@@ -43,6 +43,8 @@ function Edit() {
                     text: " Can't Delete Item ",
                 });
             }
+            // حذف الصورة من Cloudinary
+            await deleteImage(imageId);
             setData((prevData) => prevData.filter(item => item._id !== productId));
             Swal.fire({
                 position: "top-end",
@@ -55,6 +57,26 @@ function Edit() {
             console.log(err)
         }
     }
+    // دالة حذف الصورة
+    const deleteImage = async (publicId) => {
+        try {
+            const response = await fetch(`${BASE_URL}/delete-image`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ publicId }),
+            });
+
+            if (response.ok) {
+                console.log('Image deleted successfully');
+            } else {
+                console.error('Failed to delete image');
+            }
+        } catch (error) {
+            console.error('Error deleting image:', error);
+        }
+    };
     console.log(data)
     return (
         <Container>
@@ -87,7 +109,7 @@ function Edit() {
                                         <EditSharp />
                                     </IconButton>
                                     <IconButton onClick={() => {
-                                        removeProduct(proj._id);
+                                        removeProduct(proj._id, proj.imageId);
                                     }}>
                                         <Delete color='error' />
                                     </IconButton>

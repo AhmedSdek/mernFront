@@ -87,7 +87,7 @@ function CreateProduct() {
 
             const cloudinaryData = await cloudinaryRes.json();
             const imageUrl = cloudinaryData.secure_url; // رابط الصورة
-
+            const imagePublicId = cloudinaryData.public_id; // Public ID الخاص بالصورة
             // إرسال البيانات مع رابط الصورة إلى الـ API الخاص بك
             const res = await fetch(`${BASE_URL}/api/menu/creatmenu`, {
                 method: "POST",
@@ -98,6 +98,7 @@ function CreateProduct() {
                 body: JSON.stringify({
                     title,
                     image: imageUrl, // إرسال رابط الصورة
+                    imageId: imagePublicId,
                     price,
                     trending: false,
                 }),
