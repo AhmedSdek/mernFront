@@ -15,6 +15,7 @@ import Orders from './admin/Orders'
 import CreateProduct from './admin/CreateProduct'
 import AcceptedOrders from './admin/AcceptedOrders'
 import Edit from './admin/Edit'
+import EditProduct from './admin/EditProduct'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path='orders' element={<Orders />} />
             <Route path='accepted-orders' element={<AcceptedOrders />} />
             <Route path='edit' element={<Edit />} />
+            <Route path='edit/:id' element={<EditProduct />} />
           </Route>
         </Route>
         <Route path='/checkout' element={<CheckOut />} />

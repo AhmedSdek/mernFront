@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../conestans/baseUrl';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Container, IconButton, Stack, Typography } from '@mui/material';
 import { Delete, EditSharp } from '@mui/icons-material';
@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 
 function Edit() {
     const [data, setData] = useState([]);
-    const { isAuthenticated, token } = useAuth();
+    const { token } = useAuth();
     const nav = useNavigate();
 
     useEffect(() => {
@@ -105,9 +105,11 @@ function Edit() {
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
+                                    <Link to={`/dashboard/edit/${proj._id}`}>
                                     <IconButton>
                                         <EditSharp />
                                     </IconButton>
+                                    </Link>
                                     <IconButton onClick={() => {
                                         removeProduct(proj._id, proj.imageId);
                                     }}>
