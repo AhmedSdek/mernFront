@@ -40,9 +40,9 @@
 }
 
 .hed{
-  height: 80vh ;
-  background-image: url(../public/4117465.jpg);
-  background-position: bottom;
+  height: 70vh ;
+  background-image: url(../public/2.jpg);
+  background-position: center;
   background-size: cover;
 }
 .newOrder{

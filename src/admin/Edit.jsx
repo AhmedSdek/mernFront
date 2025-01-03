@@ -90,12 +90,18 @@ function Edit() {
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
-                                        height="140"
+                                        height="350"
                                         image={proj.image}
                                         alt="green iguana"
+                                        sx={{ objectFit: 'fill' }}
                                     />
                                     <CardContent sx={{ display: 'flex', flexDirection: 'column', }}>
-                                        <Typography gutterBottom variant="h5" component="div">
+                                        <Typography gutterBottom variant="h5" sx={{
+                                            whiteSpace: 'nowrap',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            maxWidth: '100%',
+                                        }}>
                                             {proj.title}
                                         </Typography>
                                         <Typography variant="body2" sx={{ color: 'text.secondary' }}>

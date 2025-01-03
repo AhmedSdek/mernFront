@@ -48,7 +48,7 @@ function Home() {
             <Header />
         <Container sx={{ mt: 2 }}>
                 <Typography component='h2' variant='h4' sx={{ fontWeight: 'bold', color: '#eb8225', padding: '15px  0' }}>
-                    Our Menu
+                    Our Products
                 </Typography>
                 <Divider sx={{ margin: '0 0 20px 0' }} />
                 <Stack sx={{ flexDirection: 'row', alignItems: 'center', gap: 2, flexWrap: 'wrap', padding: '15px 0', justifyContent: 'center' }}>
@@ -60,12 +60,18 @@ function Home() {
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
-                                        height="140"
+                                        height="350"
                                         image={proj.image}
                                         alt="green iguana"
+                                        sx={{ objectFit: 'fill' }}
                                     />
                                     <CardContent sx={{ display: 'flex', flexDirection: 'column', }}>
-                                        <Typography gutterBottom variant="h5" component="div">
+                                        <Typography gutterBottom variant="h6" sx={{
+                                            whiteSpace: 'nowrap',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            maxWidth: '100%',
+                                        }}>
                                             {proj.title}
                                         </Typography>
                                         <Typography variant="body1" sx={{ color: 'text.secondary', fontWeight: 'bold' }}>
