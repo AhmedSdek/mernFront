@@ -9,7 +9,7 @@ const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
     const [err, setErr] = useState("");
     const [totalAmount, setTotalAmount] = useState(0);
-    const [btn, setBtn] = useState(false);
+    const [btn, setBtn] = useState(null);
 
     useEffect(() => {
         if (!token) {
@@ -41,7 +41,7 @@ const CartProvider = ({ children }) => {
     }, []);
 
     const addItemToCart = async (productId) => {
-        setBtn(true)
+        setBtn(productId)
         try {
             const res = await fetch(`${BASE_URL}/cart/items`, {
                 method: "POST",
@@ -56,7 +56,7 @@ const CartProvider = ({ children }) => {
             });
             if (!res.ok) {
                 setErr("faild to add product to cart");
-                setBtn(false);
+                setBtn(null);
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
@@ -68,7 +68,7 @@ const CartProvider = ({ children }) => {
             // console.log(cart);
             if (!cart) {
                 setErr("faield to parse cart");
-                setBtn(false)
+                setBtn(null)
                 return;
             }
             cart.items.map((it) => console.log(it))
@@ -89,7 +89,7 @@ const CartProvider = ({ children }) => {
                 showConfirmButton: false,
                 timer: 900
             });
-            setBtn(false)
+            setBtn(null)
         } catch (err) {
             console.log(err);
             setBtn(false)

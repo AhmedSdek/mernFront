@@ -24,6 +24,8 @@ function Cart() {
     const handelRemoveItem = (productId) => {
         removeItemfromCart(productId)
     }
+    // console.log(cartItems)
+
     if (isAuthenticated) {
         return (
             <Box sx={{ marginTop: '64px' }}>
@@ -55,7 +57,6 @@ function Cart() {
                                                 <Button onClick={() => handelQuantity(item.productId, item.quantity + 1)}>{btn ? "Loading" : < AddIcon />}</Button>
                                                 <Button disabled sx={{ color: 'black !important' }}>{item.quantity}</Button>
                                                 <Button disabled={item.quantity <= 1} onClick={() => handelQuantity(item.productId, item.quantity - 1)}>{btn ? "Loading" : <RemoveIcon />}</Button>
-
                                             </ButtonGroup>
                                         </Paper>
                                     )
