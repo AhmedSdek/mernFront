@@ -90,8 +90,7 @@ function Home() {
                                         :
                                     <Button
                                             disabled={btn === proj._id}
-                                        onClick={() => {
-                                            console.log(proj._id)
+                                            onClick={() => {
                                             if (isAuthenticated) {
                                                 addItemToCart(proj._id)
                                             } else {

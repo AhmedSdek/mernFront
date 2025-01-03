@@ -80,7 +80,7 @@ const CartProvider = ({ children }) => {
                 setBtn(null)
                 return;
             }
-            cart.items.map((it) => console.log(it))
+            // cart.items.map((it) => console.log(it))
             const cartItemsMaped = cart.items.map(({ product, quantity, unitPrice }) => ({
                 productId: product._id,
                 title: product.title,
