@@ -77,7 +77,6 @@ function Edit() {
             console.error('Error deleting image:', error);
         }
     };
-    console.log(data)
     return (
         <Container>
             <Typography>

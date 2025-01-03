@@ -49,7 +49,7 @@ function Nav() {
         nav('/cart')
     }
     const habdelDashboard = () => {
-        nav('/dashboard')
+        nav('/dashboard/create')
         handleCloseUserMenu();
     }
     const handelOrders = () => {

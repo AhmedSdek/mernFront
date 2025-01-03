@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../conestans/baseUrl.jsx';
 function CreateProduct() {
     const { token } = useAuth();
-    const titleRef = useRef(null);
     const nav = useNavigate()
+    const titleRef = useRef(null);
     const priceRef = useRef(null);
     const [image, setImage] = useState(null);
     // تتبع حالة التحميل
@@ -58,7 +58,6 @@ function CreateProduct() {
         e.preventDefault();
         const title = titleRef.current.value;
         const price = priceRef.current.value;
-
         try {
             setIsLoading(true); // تفعيل اللودينج
             // رفع الصورة إلى Cloudinary
@@ -66,7 +65,6 @@ function CreateProduct() {
             formData.append("file", image);
             formData.append("upload_preset", "restorant"); // استبدل بـ upload preset الخاص بـ Cloudinary
             formData.append("cloud_name", "dsy9h8z8d"); // استبدل بـ Cloud Name الخاص بك
-
             const cloudinaryRes = await fetch(
                 `https://api.cloudinary.com/v1_1/dsy9h8z8d/image/upload`,
                 {
@@ -74,7 +72,6 @@ function CreateProduct() {
                     body: formData,
                 }
             );
-
             if (!cloudinaryRes.ok) {
                 Swal.fire({
                     icon: "error",
@@ -84,7 +81,6 @@ function CreateProduct() {
                 setIsLoading(false); // إيقاف اللودينج
                 return;
             }
-
             const cloudinaryData = await cloudinaryRes.json();
             const imageUrl = cloudinaryData.secure_url; // رابط الصورة
             const imagePublicId = cloudinaryData.public_id; // Public ID الخاص بالصورة
@@ -103,7 +99,6 @@ function CreateProduct() {
                     trending: false,
                 }),
             });
-
             if (!res.ok) {
                 Swal.fire({
                     icon: "error",
@@ -113,7 +108,6 @@ function CreateProduct() {
                 setIsLoading(false); // إيقاف اللودينج
                 return;
             }
-
             Swal.fire({
                 position: "top-end",
                 icon: "success",
