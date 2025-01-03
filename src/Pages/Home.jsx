@@ -17,7 +17,6 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 function Home() {
     const [data, setData] = useState([]);
-    const [cartId, setCartId] = useState([]);
     const { addItemToCart, btn, cartItems, handelQuantity, handelRemoveItem } = useCart();
     const { isAuthenticated } = useAuth();
     const nav = useNavigate()
@@ -36,7 +35,7 @@ function Home() {
         };
         fetchData();
     }, []); // Empty dependency array to run once on component mount
-    console.log(cartItems)
+    // console.log(cartItems)
     const isProductInCart = (productId) => {
         return cartItems.some((item) => item.productId === productId);
     };
@@ -55,7 +54,7 @@ function Home() {
                 <Stack sx={{ flexDirection: 'row', alignItems: 'center', gap: 2, flexWrap: 'wrap', padding: '15px 0', justifyContent: 'center' }}>
                     {data.length > 0 ?
                         data.map((proj, index) => {
-                            console.log(proj)
+                            // console.log(proj)
                         return (
                             <Card key={index} sx={{ width: 345 }}>
                                 <CardActionArea>

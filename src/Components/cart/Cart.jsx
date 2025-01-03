@@ -32,7 +32,7 @@ function Cart() {
                         <Stack sx={{ gap: 2 }}>
                             {cartItems.length ?
                                 cartItems.map((item, index) => {
-                                    console.log(item)
+                                    // console.log(item)
                                     return (
                                         <Paper key={index} elevation={3} sx={{ padding: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '25px', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
                                             <Stack sx={{ flexDirection: { xs: "column", sm: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 2, width: { xs: '100%', sm: 'initial' } }}>
