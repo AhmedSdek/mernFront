@@ -13,17 +13,8 @@ function Cart() {
             nav('/')
         }
     }, []);
-    const { cartItems, totalAmount, updateItemInCart, setBtn, btn, removeItemfromCart, clearCart } = useCart()
-    const handelQuantity = (productId, quantity) => {
-        if (quantity <= 0) {
-            return;
-        }
-        setBtn(true)
-        updateItemInCart(productId, quantity);
-    }
-    const handelRemoveItem = (productId) => {
-        removeItemfromCart(productId)
-    }
+    const { cartItems, totalAmount, clearCart, handelQuantity, handelRemoveItem, btn } = useCart()
+
     // console.log(cartItems)
 
     if (isAuthenticated) {
@@ -41,6 +32,7 @@ function Cart() {
                         <Stack sx={{ gap: 2 }}>
                             {cartItems.length ?
                                 cartItems.map((item, index) => {
+                                    console.log(item)
                                     return (
                                         <Paper key={index} elevation={3} sx={{ padding: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '25px', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
                                             <Stack sx={{ flexDirection: { xs: "column", sm: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 2, width: { xs: '100%', sm: 'initial' } }}>
@@ -50,13 +42,15 @@ function Cart() {
                                                 <Stack sx={{ alignItems: 'start', gap: 1, width: { xs: '100%', sm: 'initial' } }}>
                                                     <Typography sx={{ fontWeight: 'bold' }}>{item.title}</Typography>
                                                     <Typography sx={{ fontWeight: 'bold' }}>{item.quantity} x {item.unitPrice} EGP</Typography>
-                                                    <Button variant='outlined' onClick={() => handelRemoveItem(item.productId)} color='error' >Remove Item</Button>
+                                                    <Button variant='outlined' onClick={() => handelRemoveItem(item.productId)} color='error' >{btn === item.productId ? 'loading' : 'Remove Item'}</Button>
                                                 </Stack>
                                             </Stack>
                                             <ButtonGroup variant="contained" aria-label="Basic button group">
-                                                <Button onClick={() => handelQuantity(item.productId, item.quantity + 1)}>{btn ? "Loading" : < AddIcon />}</Button>
+                                                <Button onClick={() => handelQuantity(item.productId, item.quantity + 1)}>{btn === item.productId ? "Loading" : < AddIcon />}</Button>
+
                                                 <Button disabled sx={{ color: 'black !important' }}>{item.quantity}</Button>
-                                                <Button disabled={item.quantity <= 1} onClick={() => handelQuantity(item.productId, item.quantity - 1)}>{btn ? "Loading" : <RemoveIcon />}</Button>
+
+                                                <Button disabled={item.quantity <= 1} onClick={() => handelQuantity(item.productId, item.quantity - 1)}>{btn === item.productId ? "Loading" : <RemoveIcon />}</Button>
                                             </ButtonGroup>
                                         </Paper>
                                     )

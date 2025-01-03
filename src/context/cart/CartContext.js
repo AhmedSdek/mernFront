@@ -8,7 +8,9 @@ export const CartContext = createContext({
     setBtn: () => { },
     updateItemInCart: () => { },
     removeItemfromCart: () => { },
-    clearCart: () => { }
+    clearCart: () => { },
+    handelRemoveItem: () => { },
+    handelQuantity: () => { },
 });
 
 export const useCart = () => useContext(CartContext);

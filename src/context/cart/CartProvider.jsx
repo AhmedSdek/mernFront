@@ -10,7 +10,16 @@ const CartProvider = ({ children }) => {
     const [err, setErr] = useState("");
     const [totalAmount, setTotalAmount] = useState(0);
     const [btn, setBtn] = useState(null);
-
+    const handelQuantity = (productId, quantity) => {
+        if (quantity <= 0) {
+            return;
+        }
+        setBtn(productId)
+        updateItemInCart(productId, quantity);
+    }
+    const handelRemoveItem = (productId) => {
+        removeItemfromCart(productId)
+    }
     useEffect(() => {
         if (!token) {
             return;
@@ -97,7 +106,7 @@ const CartProvider = ({ children }) => {
         // console.log(productId);
     };
     const updateItemInCart = async (productId, quantity) => {
-
+        setBtn(productId)
         try {
             const res = await fetch(`${BASE_URL}/cart/items`, {
                 method: 'PUT',
@@ -111,21 +120,25 @@ const CartProvider = ({ children }) => {
                 })
             });
             if (!res.ok) {
-                setErr("faild to update product to cart")
+                setErr("faild to update product to cart");
+                setBtn(null)
             }
             const cart = await res.json();
             if (!cart) {
-                setErr("faield to parse cart")
+                setErr("faield to parse cart");
+                setBtn(null)
             }
             const cartItemsMaped = cart.items.map(({ product, quantity, unitPrice }) => ({ productId: product._id, title: product.title, image: product.image, quantity, unitPrice }))
             setCartItems([...cartItemsMaped]);
             setTotalAmount(cart.totalAmount);
-            setBtn(false)
+            setBtn(null)
         } catch (err) {
-            console.log(err)
+            console.log(err);
+            setBtn(null)
         }
     }
     const removeItemfromCart = async (productId) => {
+        setBtn(productId)
         try {
             const res = await fetch(`${BASE_URL}/cart/items/${productId}`, {
                 method: 'DELETE',
@@ -135,6 +148,7 @@ const CartProvider = ({ children }) => {
             });
             if (!res.ok) {
                 setErr("faild to delete product from cart");
+                setBtn(null)
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
@@ -143,7 +157,8 @@ const CartProvider = ({ children }) => {
             }
             const cart = await res.json();
             if (!cart) {
-                setErr("faield to parse cart")
+                setErr("faield to parse cart");
+                setBtn(null)
             }
             const cartItemsMaped = cart.items.map(({ product, quantity, unitPrice }) => ({ productId: product._id, title: product.title, image: product.image, quantity, unitPrice }))
             setCartItems([...cartItemsMaped]);
@@ -155,8 +170,10 @@ const CartProvider = ({ children }) => {
                 showConfirmButton: false,
                 timer: 900
             });
+            setBtn(null)
         } catch (err) {
-            console.log(err)
+            console.log(err);
+            setBtn(null)
         }
     }
     const clearCart = async () => {
@@ -193,7 +210,7 @@ const CartProvider = ({ children }) => {
         }
     }
     return (
-        <CartContext.Provider value={{ addItemToCart, cartItems, totalAmount, btn, setBtn, updateItemInCart, removeItemfromCart, clearCart }}>
+        <CartContext.Provider value={{ addItemToCart, cartItems, totalAmount, btn, setBtn, updateItemInCart, removeItemfromCart, clearCart, handelQuantity, handelRemoveItem }}>
             {children}
         </CartContext.Provider>
     );

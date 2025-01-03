@@ -18,7 +18,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 function Home() {
     const [data, setData] = useState([]);
     const [cartId, setCartId] = useState([]);
-    const { addItemToCart, btn, cartItems } = useCart();
+    const { addItemToCart, btn, cartItems, handelQuantity, handelRemoveItem } = useCart();
     const { isAuthenticated } = useAuth();
     const nav = useNavigate()
     useEffect(() => {
@@ -36,17 +36,14 @@ function Home() {
         };
         fetchData();
     }, []); // Empty dependency array to run once on component mount
-    console.log(data)
+    console.log(cartItems)
     const isProductInCart = (productId) => {
         return cartItems.some((item) => item.productId === productId);
     };
-    const handelQuantity = (productId, quantity) => {
-        if (quantity <= 0) {
-            return;
-        }
-        setBtn(true)
-        updateItemInCart(productId, quantity);
-    }
+    const getProductQuantity = (productId) => {
+        const item = cartItems.find((item) => item.productId === productId);
+        return item ? item.quantity : 0; // إذا كان المنتج موجودًا، ارجع الكمية؛ وإلا ارجع 0
+    };
     return (
         <>
             <Header />
@@ -80,9 +77,16 @@ function Home() {
                                 <CardActions>
                                     {isProductInCart(proj._id) ?
                                         <ButtonGroup variant="contained" aria-label="Basic button group">
-                                            <Button onClick={() => handelQuantity(item.productId, item.quantity + 1)}>{btn ? "Loading" : < AddIcon />}</Button>
-                                            <Button disabled sx={{ color: 'black !important' }}>{proj.quantity}</Button>
-                                            <Button disabled={proj.quantity <= 1} onClick={() => handelQuantity(proj.productId, proj.quantity - 1)}>{btn ? "Loading" : <RemoveIcon />}</Button>
+                                            <Button onClick={() => handelQuantity(proj._id, getProductQuantity(proj._id) + 1)}>{btn === proj._id ? "Loading" : < AddIcon />}</Button>
+                                            <Button disabled sx={{ color: 'black !important' }}>{getProductQuantity(proj._id)}</Button>
+                                            <Button onClick={() => {
+                                                if (getProductQuantity(proj._id) === 1) {
+                                                    handelRemoveItem(proj._id)
+                                                }
+                                                handelQuantity(proj._id, getProductQuantity(proj._id) - 1)
+                                            }
+                                            }
+                                            >{btn === proj._id ? "Loading" : <RemoveIcon />}</Button>
                                         </ButtonGroup>
                                         :
                                     <Button
