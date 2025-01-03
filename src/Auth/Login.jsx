@@ -71,11 +71,11 @@ function Login() {
                             <Button type="submit" variant="contained" style={{ width: '50%' }} className="btn">
                                 {btn ? '' : "login"}
                             </Button>
-                            <Button onClick={() => {
+                            {/* <Button onClick={() => {
                                 setHiden('show')
                             }} style={{ margin: '10px', color: 'red', cursor: 'pointer' }}>
                                 Forget Pass
-                            </Button>
+                            </Button> */}
                             <p style={{ margin: '10px' }}>
 
                                 Dont have an Acount <Link to='/register' >

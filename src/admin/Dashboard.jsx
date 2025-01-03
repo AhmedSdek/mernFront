@@ -11,7 +11,8 @@ function Dashboard() {
         { icon: <FileCopyIcon />, name: 'Create', path: 'create' },
         { icon: <SaveIcon />, name: 'New Orders', path: 'orders' },
         { icon: <PrintIcon />, name: 'Accepted Orders', path: 'accepted-orders' },
-        { icon: <ShareIcon />, name: 'Edit', path: 'edit' },
+        { icon: <ShareIcon />, name: 'Edit-product', path: 'edit' },
+        { icon: <ShareIcon />, name: 'Edit-user', path: 'user-edit' },
     ];
     return (
         <Box sx={{ marginTop: '64px' }}>

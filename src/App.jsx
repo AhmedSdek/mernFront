@@ -16,6 +16,8 @@ import CreateProduct from './admin/CreateProduct'
 import AcceptedOrders from './admin/AcceptedOrders'
 import Edit from './admin/Edit'
 import EditProduct from './admin/EditProduct'
+import Users from './admin/Users'
+import UserEdit from './admin/UserEdit'
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
             <Route path='accepted-orders' element={<AcceptedOrders />} />
             <Route path='edit' element={<Edit />} />
             <Route path='edit/:id' element={<EditProduct />} />
+            <Route path='user-edit' element={<Users />} />
+            <Route path='user-edit/:userid' element={<UserEdit />} />
           </Route>
         </Route>
         <Route path='/checkout' element={<CheckOut />} />
