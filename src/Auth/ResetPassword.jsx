@@ -10,7 +10,7 @@ const ResetPassword = () => {
     const navigate = useNavigate();
 
     const token = new URLSearchParams(search).get("token");
-
+    console.log("Token:", token);
     const handleSubmit = async (e) => {
         e.preventDefault();
 
