@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../conestans/baseUrl";
+import { Stack } from "@mui/material";
 
 const ResetPassword = () => {
     const [password, setPassword] = useState("");
@@ -28,7 +29,7 @@ const ResetPassword = () => {
     };
 
     return (
-        <div>
+        <Stack sx={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <form onSubmit={handleSubmit}>
                 <input
                     type="password"
@@ -40,7 +41,7 @@ const ResetPassword = () => {
                 <button type="submit">Reset Password</button>
             </form>
             {message && <p>{message}</p>}
-        </div>
+        </Stack>
     );
 };
 
