@@ -5,15 +5,18 @@ import { Link, useNavigate } from "react-router-dom"
 import { Box, Button, Card, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import { BASE_URL } from "../conestans/baseUrl";
+import { Close } from "@mui/icons-material";
+import AuthModel from "./AuthModel";
 
 function Login() {
     const [email, setEmail] = useState('');
+    const [restEmail, setRestEmail] = useState('');
     const [btn, setBtn] = useState(false);
     const [password, setPassword] = useState('');
     const [err, setErr] = useState('');
     const nav = useNavigate()
     const [hiden, setHiden] = useState('hiden');
-    const [messeg, setMesseg] = useState(false);
+    const [messege, setMessage] = useState(false);
     const { register, isAuthenticated } = useAuth()
     useEffect(() => {
         if (isAuthenticated) {
@@ -23,6 +26,40 @@ function Login() {
     if (!isAuthenticated) {
         return (
             <>
+                <AuthModel hiden={hiden}>
+                    <Card>
+                        <Stack component='form' onSubmit={async (e) => {
+                            e.preventDefault()
+                            const response = await fetch(`${BASE_URL}/user/request-password-reset`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ email: restEmail }),
+                            });
+                            const data = await response.json();
+                            setMessage(data.message);
+                        }} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', padding: '30px 10px' }}>
+                            <IconButton sx={{ position: 'absolute', top: '2px', right: '2px' }} onClick={() => {
+                                setHiden('hiden')
+                            }}>
+                                <Close />
+                            </IconButton>
+                            <TextField
+                                sx={{ margin: '10px', padding: '5px', width: { xs: '100%', md: '50%' } }}
+                                onChange={(e) => {
+                                    setRestEmail(e.target.value);
+                                }}
+                                id="u" label="Email" variant="outlined" type="email" />
+                            <Button type="submit" style={{ width: '50%' }} className="btn">
+                                Reset Password
+                            </Button>
+                            {messege &&
+                                <p style={{ color: 'black', margin: '10px' }}>{messege}</p>
+                            }
+                        </Stack>
+                    </Card>
+
+                </AuthModel>
+
                 <Box style={{ width: '100%', display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center' }}>
                     <Card sx={{ width: { xs: '90%', sm: '80%' }, display: 'flex', alignItems: 'center', flexDirection: 'column', padding: '20px' }}>
                         <Box component='form'
@@ -77,13 +114,12 @@ function Login() {
                             <Button type="submit" variant="contained" style={{ width: '50%' }} className="btn">
                                 {btn ? '' : "login"}
                             </Button>
-                            {/* <Button onClick={() => {
+                            <Button onClick={() => {
                                 setHiden('show')
                             }} style={{ margin: '10px', color: 'red', cursor: 'pointer' }}>
                                 Forget Pass
-                            </Button> */}
+                            </Button>
                             <p style={{ margin: '10px' }}>
-
                                 Dont have an Acount <Link to='/register' >
                                     <Button>
                                         Register

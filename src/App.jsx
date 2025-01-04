@@ -20,6 +20,7 @@ import Users from './admin/Users'
 import UserEdit from './admin/UserEdit'
 import VerifyEmail from './Auth/VerifyEmail'
 import Verfy from './Components/Verfy'
+import ResetPassword from './Auth/ResetPassword'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/verfy" element={<Verfy />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path='/' element={<Home />} />
         <Route path='/cart' element={<Cart />} />
