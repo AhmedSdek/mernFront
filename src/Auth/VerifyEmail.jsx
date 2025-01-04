@@ -23,7 +23,7 @@ const VerifyEmail = () => {
                         setMessage('Email verified successfully!');
                         // بعد التحقق بنجاح، يمكنك توجيه المستخدم إلى صفحة أخرى
                         setTimeout(() => {
-                            nav('/');  // على سبيل المثال، توجيه المستخدم إلى صفحة تسجيل الدخول
+                            nav('/login');  // على سبيل المثال، توجيه المستخدم إلى صفحة تسجيل الدخول
                         }, 2000);
                     } else {
                         setMessage('Invalid or expired verification link.');
