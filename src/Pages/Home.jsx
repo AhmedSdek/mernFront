@@ -18,8 +18,9 @@ import RemoveIcon from '@mui/icons-material/Remove';
 function Home() {
     const [data, setData] = useState([]);
     const { addItemToCart, btn, cartItems, handelQuantity, handelRemoveItem } = useCart();
-    const { isAuthenticated } = useAuth();
-    const nav = useNavigate()
+    const { isAuthenticated, isVerified } = useAuth();
+    const nav = useNavigate();
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -98,7 +99,11 @@ function Home() {
                                             disabled={btn === proj._id}
                                             onClick={() => {
                                             if (isAuthenticated) {
-                                                addItemToCart(proj._id)
+                                                if (isVerified) {
+                                                    addItemToCart(proj._id)
+                                                } else {
+                                                    alert('verfy')
+                                                }
                                             } else {
                                                 nav('/login')
                                             }

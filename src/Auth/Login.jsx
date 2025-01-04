@@ -28,27 +28,33 @@ function Login() {
                         <Box component='form'
                             onSubmit={async (e) => {
                                 e.preventDefault();
-                                const res = await fetch(`${BASE_URL}/user/login`, {
-                                    method: 'POST',
-                                    headers: {
-                                        "Content-Type": 'application/json'
-                                    },
-                                    body: JSON.stringify({
-                                        email,
-                                        password,
-                                    })
-                                });
-                                if (!res.ok) {
-                                    setErr('Unable to login please check your email or password');
-                                    return;
+                                try {
+                                    const res = await fetch(`${BASE_URL}/user/login`, {
+                                        method: 'POST',
+                                        headers: {
+                                            "Content-Type": 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            email,
+                                            password,
+                                        })
+                                    });
+                                    if (!res.ok) {
+                                        const token = await res.json();
+                                        setErr(token)
+                                        // setErr('Unable to login please check your email or password');
+                                        return;
+                                    }
+                                    const token = await res.json();
+                                    if (!token) {
+                                        setErr('Incorrect token')
+                                    }
+                                    console.log(token)
+                                    register(token);
+                                    window.location.href = '/'
+                                } catch (err) {
+                                    console.log(err)
                                 }
-                                const token = await res.json();
-                                if (!token) {
-                                    setErr('Incorrect token')
-                                }
-                                // console.log(token)
-                                register(token.firstName, token.lastName, token.token, token.role);
-                                nav('/')
                             }}
                             style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: '100%' }}>
                             <Typography variant="h5" component='h4'>Log In</Typography>

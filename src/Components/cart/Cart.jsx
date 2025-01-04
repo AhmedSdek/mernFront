@@ -62,12 +62,18 @@ function Cart() {
                                     </Typography>
                                 </Stack>
                             }
+                            {cartItems.length > 0 && 
                             <Paper elevation={3} sx={{ padding: '10px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }}>
                                 <Typography>Total Price : {totalAmount.toFixed(2)} EGP</Typography>
-                                <Button variant='contained' onClick={() => nav('/checkout')}>
+                                    <Button variant='contained' onClick={() => {
+                                        if (cartItems.length > 0) {
+                                            nav('/checkout');
+                                        }
+                                    }}>
                                     Check Out
                                 </Button>
                             </Paper>
+                            }
                         </Stack>
                     </Stack>
                 </Container>

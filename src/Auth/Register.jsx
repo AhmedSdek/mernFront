@@ -49,8 +49,8 @@ function Regester() {
                             }
                             setBtn(true);
                             console.log(token)
-                            register(token.firstName, token.lastName, token.token, token.role);
-                            nav('/')
+                            // register(token);
+                            nav('/verfy')
                         }}
                         style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: '100%' }}>
                         <TextField

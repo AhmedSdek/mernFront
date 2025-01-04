@@ -18,12 +18,16 @@ import Edit from './admin/Edit'
 import EditProduct from './admin/EditProduct'
 import Users from './admin/Users'
 import UserEdit from './admin/UserEdit'
+import VerifyEmail from './Auth/VerifyEmail'
+import Verfy from './Components/Verfy'
 
 function App() {
   return (
     <>
       <Nav />
       <Routes>
+        <Route path="/verfy" element={<Verfy />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path='/' element={<Home />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/register' element={<Regester />} />
