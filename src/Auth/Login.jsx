@@ -65,6 +65,7 @@ function Login() {
                         <Box component='form'
                             onSubmit={async (e) => {
                                 e.preventDefault();
+                                setBtn(true);
                                 try {
                                     const res = await fetch(`${BASE_URL}/user/login`, {
                                         method: 'POST',
@@ -86,8 +87,9 @@ function Login() {
                                     if (!token) {
                                         setErr('Incorrect token')
                                     }
-                                    console.log(token)
+                                    // console.log(token)
                                     register(token);
+                                    setBtn(false);
                                     window.location.href = '/'
                                 } catch (err) {
                                     console.log(err)

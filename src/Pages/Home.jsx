@@ -102,7 +102,7 @@ function Home() {
                                                 if (isVerified) {
                                                     addItemToCart(proj._id)
                                                 } else {
-                                                    alert('verfy')
+                                                    alert('Please verfay your email ')
                                                 }
                                             } else {
                                                 nav('/login')
