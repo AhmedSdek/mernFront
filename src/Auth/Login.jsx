@@ -79,20 +79,23 @@ function Login() {
                                     });
                                     if (!res.ok) {
                                         const token = await res.json();
-                                        setErr(token)
+                                        setErr(token);
+                                        setBtn(false)
                                         // setErr('Unable to login please check your email or password');
                                         return;
                                     }
                                     const token = await res.json();
                                     if (!token) {
-                                        setErr('Incorrect token')
+                                        setErr('Incorrect token');
+                                        setBtn(false)
                                     }
                                     // console.log(token)
                                     register(token);
                                     setBtn(false);
                                     window.location.href = '/'
                                 } catch (err) {
-                                    console.log(err)
+                                    console.log(err);
+                                    setBtn(false)
                                 }
                             }}
                             style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: '100%' }}>
@@ -113,8 +116,8 @@ function Login() {
                                 err &&
                                 <p>{err}</p>
                             }
-                            <Button type="submit" variant="contained" style={{ width: '50%' }} className="btn">
-                                {btn ? '' : "login"}
+                            <Button type="submit" variant="contained" style={{ width: '50%' }} disabled={btn} className="btn">
+                                {btn ? 'loading' : "login"}
                             </Button>
                             <Button onClick={() => {
                                 setHiden('show')
