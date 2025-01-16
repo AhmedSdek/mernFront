@@ -9,6 +9,7 @@ import moment from 'moment';
 function AcceptedOrders() {
     const { token } = useAuth();
     const [filterData, setFilterData] = useState([]);
+    const [btn, setBtn] = useState(false)
     // useEffect(() => {
     //     // الاتصال بـ Socket.IO
     //     const socket = io(`${BASE_URL}`, {
@@ -47,7 +48,9 @@ function AcceptedOrders() {
     //     };
     // }, [token]);
     const handelstatus = async (id) => {
+        setBtn(true);
         try {
+            
             const res = await fetch(`${BASE_URL}/user/${id}`, {
                 method: 'PUT',
                 headers: {
@@ -65,8 +68,10 @@ function AcceptedOrders() {
                 showConfirmButton: false,
                 timer: 1000
             });
+            setBtn(false);
         } catch (err) {
-            console.log(err)
+            console.log(err);
+            setBtn(false)
         }
     }
     useEffect(() => {
@@ -154,7 +159,9 @@ function AcceptedOrders() {
                             <Typography>address: {order.address}</Typography>
                             <Typography>Total: {order.total}</Typography>
                             {order.status === 'accepted' &&
-                                <Button onClick={() => handelstatus(order._id)} variant='contained'>Ready</Button>
+                                <Button disabled ={btn}
+                                    onClick={() => handelstatus(order._id)}
+                                    variant='contained'>Ready</Button>
                             }
                         </Paper>
                     )
