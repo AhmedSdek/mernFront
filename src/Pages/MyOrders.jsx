@@ -83,7 +83,9 @@ function MyOrdersPage() {
             </Typography>
                 <Divider />
                 <Stack sx={{ gap: 2 }}>
-                    {orders.map((item, index) => {
+                    {orders.length > 0 ?
+                        
+                    orders.map((item, index) => {
                 return (
                     <Paper key={index} elevation={3} sx={{ padding: '30px 15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '25px', flexDirection: 'column', gap: 2, position: 'relative' }}>
                         <Stack divider={<Divider sx={{ margin: '10px 0' }} />} sx={{ flexDirection: 'row', width: '100%', flexWrap: 'wrap' }}>
@@ -120,7 +122,11 @@ function MyOrdersPage() {
                         }
                     </Paper>
                 )
-                    })}
+                    })
+                        :
+                        <Typography>no order yet </Typography>
+                    }
+                    
                 </Stack>
         </Container>
         </Box>
