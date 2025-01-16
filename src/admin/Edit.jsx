@@ -124,7 +124,10 @@ function Edit() {
                                         onClick={() => {
                                         removeProduct(proj._id, proj.imageId);
                                     }}>
+                                        {btn ? "loading"
+                                            :
                                         <Delete color='error' />
+                                        }
                                     </IconButton>
                                 </CardActions>
                             </Card>
