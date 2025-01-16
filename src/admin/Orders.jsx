@@ -9,7 +9,9 @@ function Orders() {
     const { token, setNewOrdersCount } = useAuth();
     const [data, setData] = useState([]);
     const [isSoundEnabled, setIsSoundEnabled] = useState(false);
+    const [btn, setBtn] = useState(false)
     const handelstatus = async (id) => {
+        setBtn(true);
         try {
             const res = await fetch(`${BASE_URL}/user/${id}`, {
                 method: 'PUT',
@@ -40,8 +42,10 @@ function Orders() {
                 showConfirmButton: false,
                 timer: 1000
             });
+            setBtn(false)
         } catch (err) {
-            console.log(err)
+            console.log(err);
+            setBtn(false)
         }
     }
     // دالة لتشغيل الصوت
@@ -142,7 +146,9 @@ function Orders() {
                             <Typography>address: {order.address}</Typography>
                             <Typography>Total: {order.total}</Typography>
                             <Typography>time: {moment(order.createdAt).fromNow()}</Typography>
-                            <Button variant='contained' onClick={() => handelstatus(order._id)}>
+                            <Button 
+                                disabled={btn}
+                                variant='contained' onClick={() => handelstatus(order._id)}>
                                 Accept
                             </Button>
                         </Paper>
