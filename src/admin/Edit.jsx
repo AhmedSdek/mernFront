@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 
 function Edit() {
     const [data, setData] = useState([]);
+    const [btn, setBtn] = useState(false);
     const { token } = useAuth();
     const nav = useNavigate();
 
@@ -28,6 +29,7 @@ function Edit() {
     }, []); // Empty dependency array to run once on component mount
 
     const removeProduct = async (productId, imageId) => {
+        setBtn(true);
         try {
             const res = await fetch(`${BASE_URL}/api/menu/${productId}`, {
                 method: 'DELETE',
@@ -36,6 +38,7 @@ function Edit() {
                 }
             });
             if (!res.ok) {
+                setBtn(false);
                 // setErr("faild to delete product from cart");
                 Swal.fire({
                     icon: "error",
@@ -53,6 +56,7 @@ function Edit() {
                 showConfirmButton: false,
                 timer: 900
             });
+            setBtn(false)
         } catch (err) {
             console.log(err)
         }
@@ -115,7 +119,9 @@ function Edit() {
                                         <EditSharp />
                                     </IconButton>
                                     </Link>
-                                    <IconButton onClick={() => {
+                                    <IconButton 
+                                        disabled={btn}
+                                        onClick={() => {
                                         removeProduct(proj._id, proj.imageId);
                                     }}>
                                         <Delete color='error' />
